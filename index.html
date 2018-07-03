@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        My Ingrediants :
+    </div>
+    <div>
+        <button onclick = "handlers.toggleAll()">Toggle All</button>
+    </div>
+    <div>
+         <input id = "addIngTextInput" type="text">
+         <button onclick = "handlers.addIngs()" >Add Ingredients </button>
+    </div>
+    <div>
+            <input id = "changeIngTextInput"     type="text">
+            <input id = "changeIngPositionInput" type="number">
+            <button onclick = "handlers.changeIngs()" >Change Ingredients </button>
+    </div>
+
+    <div>
+           <input id = "deleteIngPositionInput" type="number">
+            <button onclick = "handlers.deleteIngs()" >Delete Ingredients </button>
+    </div>
+
+    <div>
+            <input id = "togglePositionInput" type="number">
+             <button onclick = "handlers.toggleIngs()" >Toggle Selected Ingredients </button>
+     </div>
+     <ul></ul>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
