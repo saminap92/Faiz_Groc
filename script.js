@@ -69,11 +69,8 @@ var handlers =  {
         changeIngPositionInput.value = null;
         view.displayIngs();
     },
-    deleteIngs : function(){
-        var deleteIngPositionInput = document.getElementById("deleteIngPositionInput");
-        ingsList.deleteIng(deleteIngPositionInput.value);
-
-        deleteIngPositionInput.value = null;
+    deleteIngs : function(position){
+        ingsList.deleteIng(position);
         view.displayIngs();
     },
     toggleIngs : function() { 
@@ -104,10 +101,37 @@ var view = {
                 ingDisplayString = "( )" + ings.ingDesc ;
             }
 
+            ingsLi.id = i ; // giving each row a unique id
             ingsLi.textContent = ingDisplayString;
+            ingsLi.appendChild(this.createDeleteButton());
             ingsUl.appendChild(ingsLi);
         }
+
+    },
+
+    createDeleteButton : function() {
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "deleteButton";
+        return deleteButton;
+    }, 
+
+    setupEventListeners : function() {
+
+        var ingsUl = document.querySelector('ul');
+        ingsUl.addEventListener('click', function() {
+            // get element clicked on
+            var elementClicked = event.target;
+
+            // check if element clicked is delete button
+            if(elementClicked.className === "deleteButton" ){
+                handlers.deleteIngs(parseInt(elementClicked.parentNode.id));
+            }
+        })
     }
 };
+
+view.setupEventListeners();
+
 
 
