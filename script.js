@@ -24,28 +24,29 @@ var ingsList = {
         currIng.ingSelected = ! currIng.ingSelected;
     },
     toggleAll : function() {
+
         var totalIngs = this.ings.length;
         var selectedIngs = 0;
 
-        for(var i = 0; i < totalIngs; i++){
-            if(this.ings[i].ingSelected == true){
+        // Get no of completed todos
+        this.ings.forEach(function (ingParam) {
+            if(ingParam.ingSelected === true){
                 selectedIngs ++;
-            };
-        };
+            }
+        });
 
-        if (totalIngs == selectedIngs){
-            for ( var i = 0; i < totalIngs; i++ ){
-                this.ings[i].ingSelected = false;
-            };
-        }
-        else {
-            for ( var i = 0; i < totalIngs; i++ ){
-                this.ings[i].ingSelected = true;
-            };
-        };
+        // set (x) or not 
+        this.ings.forEach(function(ingParam) {
+            // case 1 if everyhting is true, make all false
+            if(totalIngs === selectedIngs){
+                ingParam.ingSelected = false;
+            } else {
+                //case 2 If any true make all true
+                ingParam.ingSelected = true;
+            }
+
+        });
     }
-
-    
 };
 
 var handlers =  {
@@ -88,12 +89,9 @@ var view = {
         var ingsUl = document.querySelector('ul');
         ingsUl.innerHTML = ' ';
 
-        for(var i = 0; i < ingsList.ings.length; i++ ){
-
-            var ings = ingsList.ings[i];
+        ingsList.ings.forEach(function(ings, position){
             var ingsLi = document.createElement('li');
             var ingDisplayString = ' ';
-
 
             if(ings.ingSelected == true){
                 ingDisplayString = "(x)" + ings.ingDesc ;
@@ -101,12 +99,11 @@ var view = {
                 ingDisplayString = "( )" + ings.ingDesc ;
             }
 
-            ingsLi.id = i ; // giving each row a unique id
+            ingsLi.id = position;
             ingsLi.textContent = ingDisplayString;
             ingsLi.appendChild(this.createDeleteButton());
             ingsUl.appendChild(ingsLi);
-        }
-
+        }, this );
     },
 
     createDeleteButton : function() {
